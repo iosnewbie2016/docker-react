@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: 
+        context: .
+        dockerfile: Dockerfile.dev
+    restart: on-failure
+    volumes: 
+        - app/node_modules
+        - .:app/
+    ports:
+      - "3000:300" 
