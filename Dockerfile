@@ -1,17 +1,10 @@
-#Use existing image
-From node:alpine as builder
-
+FROM node:alpine
 WORKDIR '/app'
-COPY package.json .
-
-#Download and install a dependency
+COPY package*.json ./
 RUN npm install
-
 COPY . .
-
 RUN npm run build
 
-From nginx
-Expose 80
-COPY --from=builder /app/build /usr/share/nginx/html
-
+FROM nginx
+EXPOSE 80
+COPY --from=0 /app/build /usr/share/nginx/html
